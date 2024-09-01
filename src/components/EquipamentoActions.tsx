@@ -27,6 +27,11 @@
     return response.data;
   };
 
+  export const updateEquipamento = async (id: number, equipamento: Equipamento): Promise<Equipamento> => {
+    const response = await axios.put<Equipamento>(`${API_URL}${id}/`, equipamento);
+    return response.data;
+  };  
+
   export const deleteEquipamento = async (id: number): Promise<void> => {
     await axios.delete(`${API_URL}${id}/`);
   };

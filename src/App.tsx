@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes, NavLink } from 'react-router-do
 import EquipamentoList from './components/EquipamentoList';
 import EquipamentoForm, { EquipamentoFormData } from './components/EquipamentoForm';
 import Header from './components/Header';
-import styles from './styles/equipamentos_form.module.css';
+import EquipamentoFormStyle from './styles/equipamentos_form.module.css';
 
 interface Equipamento {
   id: number;
@@ -13,13 +13,16 @@ interface Equipamento {
   modelo: string;
   numero_serie: string;
   status: string;
+  data_compra: string;
+  valor_compra: number;
+  data_ultima_manutencao?: string;
+  data_proxima_manutencao?: string;
 }
 
 const App: React.FC = () => {
   const [equipamentos, setEquipamentos] = useState<Equipamento[]>([]);
 
   useEffect(() => {
-    // Fetch the list of equipamentos when the component mounts
     fetchEquipamentos();
   }, []);
 
@@ -77,17 +80,17 @@ const App: React.FC = () => {
 
   return (
     <Router>
-      <div className={styles["app-container"]}>
+      <div className={EquipamentoFormStyle["app-container"]}>
         <Header />
-        <nav className={styles["nav-tabs"]}>
-          <NavLink to="/" className={({ isActive }) => isActive ? `${styles["nav-link"]} ${styles["active"]}` : styles["nav-link"]}>
+        <nav className={EquipamentoFormStyle["nav-tabs"]}>
+          <NavLink to="/" className={({ isActive }) => isActive ? `${EquipamentoFormStyle["nav-link"]} ${EquipamentoFormStyle["active"]}` : EquipamentoFormStyle["nav-link"]}>
             Listagem de Equipamentos
           </NavLink>
-          <NavLink to="/registrar" className={({ isActive }) => isActive ? `${styles["nav-link"]} ${styles["active"]}` : styles["nav-link"]}>
+          <NavLink to="/registrar" className={({ isActive }) => isActive ? `${EquipamentoFormStyle["nav-link"]} ${EquipamentoFormStyle["active"]}` : EquipamentoFormStyle["nav-link"]}>
             Registrar Equipamento
           </NavLink>
         </nav>
-        <div className={styles["content"]}>
+        <div className={EquipamentoFormStyle["content"]}>
           <Routes>
             <Route
               path="/"

@@ -1,0 +1,40 @@
+.app-header {
+    background-color: hsl(196, 43%, 25%);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+  
+.header-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: relative;
+}
+
+.header-title {
+    color: white;
+    text-align: center;
+}
+
+.title-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+  
+.logo-container {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    padding-left: 2%; /* Adjust this based on your preference */
+}
+
+.arkmeds-logo {
+    width: 10vw; /* Responsive width relative to viewport width */
+    max-width: 200px; /* Max width to ensure it doesn't get too large */
+    height: auto;
+}

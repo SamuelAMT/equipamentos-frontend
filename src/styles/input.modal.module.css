@@ -1,0 +1,8 @@
+input {
+    width: 100%;
+    padding: 12px; /* Increased padding */
+    border-radius: 7px; /* More rounded corners */
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
