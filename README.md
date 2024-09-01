@@ -1,70 +1,42 @@
-# Getting Started with Create React App
+# Crud Equipamentos - Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Esta aplicação é responsável pela interface de usuário do sistema de gerenciamento de equipamentos, desenvolvido com React e TypeScript. O frontend consome a API REST fornecida pelo backend em Django para realizar as operações de CRUD.
 
-## Available Scripts
+## 🚀 Começando
+Siga as instruções abaixo para configurar e executar o projeto frontend localmente.
 
-In the project directory, you can run:
+## 🌟 Principais Funcionalidades
+• Listar todos os equipamentos cadastrados.</br>
+• Cadastrar novos equipamentos na base de dados.</br>
+• Editar as informações dos equipamentos conforme necessário.</br>
+• Remover equipamentos que não são mais necessários.</br>
+• Visualizar informações detalhadas de qualquer equipamento.</br>
+• Navegação entre diferentes seções do sistema.</br>
 
-### `npm start`
+## 🗂️ Estrutura do Projeto
+• src/: Contém todo o código fonte do frontend.</br>
+  • components/: Componentes React reutilizáveis.</br>
+  • pages/: Páginas principais da aplicação, como listagem e formulário de equipamentos.</br>
+  • styles/: Arquivos CSS para a estilização da aplicação.</br>
+  • services/: Configuração das requisições à API backend.</br>
+  • App.tsx: Componente principal que gerencia as rotas e o layout geral.</br>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🧪 Testes
+Para executar os testes automatizados, utilize o seguinte comando:
+```npm test```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## ⚙️ Configuração do Ambiente
+1. Clone o repositório:
+   `
+   git clone https://github.com/SamuelAMT/equipamentos-frontend.git
+   cd equipamentos-frontend
+  `
+2. Instale as dependências do projeto:
+  `npm install`
+3. Inicie o servidor de desenvolvimento:
+  `npm start`
 
-### `npm test`
+Agora você pode acessar a aplicação em http://localhost:3000.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 👤 Autor
+Samuel Miranda - [LinkedIn](https://www.linkedin.com/in/samuel-miranda-software-py/)
