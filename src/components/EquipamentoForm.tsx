@@ -6,6 +6,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { ptBR } from 'date-fns/locale';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { formatCurrencyInput } from '../utils/formatValue';
 
 interface EquipamentoFormProps {
   onSubmit: (data: EquipamentoFormData) => void;
@@ -49,16 +50,10 @@ const EquipamentoForm: React.FC<EquipamentoFormProps> = ({ onSubmit }) => {
   };
 
   const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    const numericValue = value.replace(/[^0-9,]/g, '');
-    const floatValue = numericValue.replace(',', '.');
+    const formattedValue = formatCurrencyInput(e.target.value);
+    const numericValue = formattedValue.replace(',', '.');
+    const parsedValue = parseFloat(numericValue);
 
-    if (numericValue === '') {
-      setFormData({ ...formData, valor_compra: 0 });
-      return;
-    }
-
-    const parsedValue = parseFloat(floatValue);
     setFormData({ ...formData, valor_compra: parsedValue });
   };
 
@@ -150,36 +145,36 @@ const EquipamentoForm: React.FC<EquipamentoFormProps> = ({ onSubmit }) => {
           </select>
         </div>
         <div className={EquipamentoFormStyle.dateInputContainer}>
-        <div className={EquipamentoFormStyle["form-group"]}>
-          <label className={EquipamentoFormStyle["label"]}>Data de Compra:</label>
-          <DatePicker
-            selected={new Date(formData.data_compra)}
-            onChange={(date) => handleDateChange(date as Date, 'data_compra')}
-            dateFormat="dd/MM/yyyy"
-            locale={ptBR}
-            className={EquipamentoFormStyle["dateInput"]}
-          />
-        </div>
-        <div className={EquipamentoFormStyle["form-group"]}>
-          <label className={EquipamentoFormStyle["label"]}>Data da Última Manutenção:</label>
-          <DatePicker
-            selected={new Date(formData.data_ultima_manutencao!)}
-            onChange={(date) => handleDateChange(date as Date, 'data_ultima_manutencao')}
-            dateFormat="dd/MM/yyyy"
-            locale={ptBR}
-            className={EquipamentoFormStyle["dateInput"]}
-          />
-        </div>
-        <div className={EquipamentoFormStyle["form-group"]}>
-          <label className={EquipamentoFormStyle["label"]}>Data da Próxima Manutenção:</label>
-          <DatePicker
-            selected={new Date(formData.data_proxima_manutencao!)}
-            onChange={(date) => handleDateChange(date as Date, 'data_proxima_manutencao')}
-            dateFormat="dd/MM/yyyy"
-            locale={ptBR}
-            className={EquipamentoFormStyle["dateInput"]}
-          />
-        </div>
+          <div className={EquipamentoFormStyle["form-group"]}>
+            <label className={EquipamentoFormStyle["label"]}>Data de Compra:</label>
+            <DatePicker
+              selected={new Date(formData.data_compra)}
+              onChange={(date) => handleDateChange(date as Date, 'data_compra')}
+              dateFormat="dd/MM/yyyy"
+              locale={ptBR}
+              className={EquipamentoFormStyle["dateInput"]}
+            />
+          </div>
+          <div className={EquipamentoFormStyle["form-group"]}>
+            <label className={EquipamentoFormStyle["label"]}>Data da Última Manutenção:</label>
+            <DatePicker
+              selected={new Date(formData.data_ultima_manutencao!)}
+              onChange={(date) => handleDateChange(date as Date, 'data_ultima_manutencao')}
+              dateFormat="dd/MM/yyyy"
+              locale={ptBR}
+              className={EquipamentoFormStyle["dateInput"]}
+            />
+          </div>
+          <div className={EquipamentoFormStyle["form-group"]}>
+            <label className={EquipamentoFormStyle["label"]}>Data da Próxima Manutenção:</label>
+            <DatePicker
+              selected={new Date(formData.data_proxima_manutencao!)}
+              onChange={(date) => handleDateChange(date as Date, 'data_proxima_manutencao')}
+              dateFormat="dd/MM/yyyy"
+              locale={ptBR}
+              className={EquipamentoFormStyle["dateInput"]}
+            />
+          </div>
         </div>
         <div className={EquipamentoFormStyle["form-group"]}>
           <label className={EquipamentoFormStyle["label"]}>Valor de Compra:</label>

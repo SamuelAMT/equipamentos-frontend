@@ -8,6 +8,7 @@ import ButtonStyle from '../styles/buttons.module.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ptBR } from 'date-fns/locale';
+import { formatCurrencyInput } from '../utils/formatValue';
 
 export interface EquipamentoFormData {
   nome: string;
@@ -44,11 +45,11 @@ const EquipamentoEditModal: React.FC<EquipamentoEditModalProps> = ({
   };
 
   const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseFloat(e.target.value.replace(',', '.')).toFixed(2);
-    setFormData({
-      ...formData,
-      [e.target.name]: parseFloat(value),
-    });
+    const formattedValue = formatCurrencyInput(e.target.value);
+    const numericValue = formattedValue.replace(',', '.');
+    const parsedValue = parseFloat(numericValue);
+
+    setFormData({ ...formData, valor_compra: parsedValue });
   };
 
   const handleDateChange = (date: Date, field: keyof EquipamentoFormData) => {
@@ -134,9 +135,14 @@ const EquipamentoEditModal: React.FC<EquipamentoEditModalProps> = ({
             <input
               type="text"
               name="valor_compra"
-              value={formData.valor_compra.toString().replace('.', ',')}
+              value={
+                typeof formData.valor_compra === 'number' && !isNaN(formData.valor_compra)
+                  ? formData.valor_compra.toFixed(2).replace('.', ',')
+                  : ''
+              }
               onChange={handleValueChange}
               className={InputModalStyle.moneyInput}
+              placeholder="0,00"
             />
           </div>
         </div>

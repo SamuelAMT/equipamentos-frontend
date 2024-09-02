@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 import { EquipamentoFormData } from './EquipamentoForm';
 import { updateEquipamento } from './EquipamentoActions';
 import EquipamentoEditModal from './EquipamentoEditModal';
 import EquipamentoListStyle from '../styles/equipamentos_list.module.css';
+
+const API_URL = '/api/equipamentos';
 
 interface Equipamento {
   id: number;
@@ -30,6 +33,8 @@ const EquipamentoList: React.FC<EquipamentoListProps> = ({ equipamentos, onEdit,
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [selectedEquipamento, setSelectedEquipamento] = useState<Equipamento | null>(null);
 
+  const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+
   const handleEdit = (equipamento: Equipamento) => {
     setSelectedEquipamento(equipamento);
     setEditModalOpen(true);
@@ -43,7 +48,12 @@ const EquipamentoList: React.FC<EquipamentoListProps> = ({ equipamentos, onEdit,
   const handleEditSubmit = async (updatedEquipamento: EquipamentoFormData) => {
     try {
       if (selectedEquipamento) {
-        await updateEquipamento(selectedEquipamento.id, updatedEquipamento);
+        await axios.post(`${API_URL}/${selectedEquipamento.id}/update/`, updatedEquipamento, {
+          headers: {
+            'X-CSRFToken': csrfToken,
+          },
+        });
+        
         toast.success('Equipamento atualizado com sucesso!');
         handleModalClose();
         
