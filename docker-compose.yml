@@ -1,22 +1,30 @@
 version: '3.9'
 
 services:
+  backend:
+    build:
+      context: ./crud-equipamentos
+      dockerfile: Dockerfile
+    image: samuelamt/crud-equipamentos:latest
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./crud-equipamentos/.env
+    networks:
+      - app-network
+
   frontend:
     build:
-      context: .
+      context: ./equipamentos-frontend
       dockerfile: Dockerfile
     image: samuelamt/equipamentos-frontend:latest
-    container_name: equipamentos-frontend-container
     ports:
-      - "3000:80"
-    environment:
-      - NODE_ENV=production
-    volumes:
-      - .:/app
-      - /app/node_modules
+      - "3000:3000"
     networks:
-      - frontend-network
+      - app-network
+    depends_on:
+      - backend
 
 networks:
-  frontend-network:
+  app-network:
     driver: bridge
