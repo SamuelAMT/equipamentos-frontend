@@ -11,31 +11,31 @@ interface EquipamentoFormProps {
 
 export interface EquipamentoFormData {
   nome: string;
-  descricao?: string;
-  status: string;
   tipo: string;
   fabricante: string;
   modelo: string;
   numero_serie: string;
+  status: string;
   data_compra: string;
   valor_compra: number;
   data_ultima_manutencao?: string;
   data_proxima_manutencao?: string;
+  descricao?: string;
 }
 
 const EquipamentoForm: React.FC<EquipamentoFormProps> = ({ onSubmit }) => {
   const [formData, setFormData] = useState<EquipamentoFormData>({
     nome: '',
-    descricao: '',
-    status: 'Em Estoque',
     tipo: '',
     fabricante: '',
     modelo: '',
     numero_serie: '',
+    status: 'Em Estoque',
     data_compra: new Date().toISOString().split('T')[0],
     valor_compra: 0,
     data_ultima_manutencao: new Date().toISOString().split('T')[0],
     data_proxima_manutencao: new Date().toISOString().split('T')[0],
+    descricao: '',
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -63,6 +63,12 @@ const EquipamentoForm: React.FC<EquipamentoFormProps> = ({ onSubmit }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!formData.tipo || !formData.fabricante || !formData.modelo || !formData.numero_serie) {
+      alert('Por favor, preencha todos os campos obrigatórios.');
+      return;
+    }
+
     onSubmit(formData);
   };
 
@@ -80,30 +86,6 @@ const EquipamentoForm: React.FC<EquipamentoFormProps> = ({ onSubmit }) => {
             required
             className={EquipamentoFormStyle["input"]}
           />
-        </div>
-        <div className={EquipamentoFormStyle["form-group"]}>
-          <label className={EquipamentoFormStyle["label"]}>Descrição:</label>
-          <textarea
-            name="descricao"
-            value={formData.descricao}
-            onChange={handleChange}
-            className={EquipamentoFormStyle["textarea"]}
-          />
-        </div>
-        <div className={EquipamentoFormStyle["form-group"]}>
-          <label className={EquipamentoFormStyle["label"]}>Status:</label>
-          <select
-            name="status"
-            value={formData.status}
-            onChange={handleChange}
-            required
-            className={EquipamentoFormStyle["select"]}
-          >
-            <option value="Em Uso">Em Uso</option>
-            <option value="Em Estoque">Em Estoque</option>
-            <option value="Manutenção">Em Manutenção</option>
-            <option value="Não Funcional">Não Funcional</option>
-          </select>
         </div>
         <div className={EquipamentoFormStyle["form-group"]}>
           <label className={EquipamentoFormStyle["label"]}>Tipo:</label>
@@ -150,24 +132,29 @@ const EquipamentoForm: React.FC<EquipamentoFormProps> = ({ onSubmit }) => {
           />
         </div>
         <div className={EquipamentoFormStyle["form-group"]}>
+          <label className={EquipamentoFormStyle["label"]}>Status:</label>
+          <select
+            name="status"
+            value={formData.status}
+            onChange={handleChange}
+            required
+            className={EquipamentoFormStyle["select"]}
+          >
+            <option value="Em Uso">Em Uso</option>
+            <option value="Em Estoque">Em Estoque</option>
+            <option value="Manutenção">Em Manutenção</option>
+            <option value="Não Funcional">Não Funcional</option>
+          </select>
+        </div>
+        <div className={EquipamentoFormStyle.dateInputContainer}>
+        <div className={EquipamentoFormStyle["form-group"]}>
           <label className={EquipamentoFormStyle["label"]}>Data de Compra:</label>
           <DatePicker
             selected={new Date(formData.data_compra)}
             onChange={(date) => handleDateChange(date as Date, 'data_compra')}
             dateFormat="dd/MM/yyyy"
             locale={ptBR}
-            className={EquipamentoFormStyle["input"]}
-          />
-        </div>
-        <div className={EquipamentoFormStyle["form-group"]}>
-          <label className={EquipamentoFormStyle["label"]}>Valor de Compra:</label>
-          <input
-            type="text"
-            name="valor_compra"
-            value={formData.valor_compra.toString().replace('.', ',')}
-            onChange={handleValueChange}
-            required
-            className={EquipamentoFormStyle["input"]}
+            className={EquipamentoFormStyle["dateInput"]}
           />
         </div>
         <div className={EquipamentoFormStyle["form-group"]}>
@@ -177,7 +164,7 @@ const EquipamentoForm: React.FC<EquipamentoFormProps> = ({ onSubmit }) => {
             onChange={(date) => handleDateChange(date as Date, 'data_ultima_manutencao')}
             dateFormat="dd/MM/yyyy"
             locale={ptBR}
-            className={EquipamentoFormStyle["input"]}
+            className={EquipamentoFormStyle["dateInput"]}
           />
         </div>
         <div className={EquipamentoFormStyle["form-group"]}>
@@ -187,13 +174,35 @@ const EquipamentoForm: React.FC<EquipamentoFormProps> = ({ onSubmit }) => {
             onChange={(date) => handleDateChange(date as Date, 'data_proxima_manutencao')}
             dateFormat="dd/MM/yyyy"
             locale={ptBR}
+            className={EquipamentoFormStyle["dateInput"]}
+          />
+        </div>
+        </div>
+        <div className={EquipamentoFormStyle["form-group"]}>
+          <label className={EquipamentoFormStyle["label"]}>Valor de Compra:</label>
+          <input
+            type="text"
+            name="valor_compra"
+            value={formData.valor_compra.toString().replace('.', ',')}
+            onChange={handleValueChange}
             className={EquipamentoFormStyle["input"]}
           />
         </div>
+        <div className={EquipamentoFormStyle["form-group"]}>
+          <label className={EquipamentoFormStyle["label"]}>Descrição:</label>
+          <textarea
+            name="descricao"
+            value={formData.descricao}
+            onChange={handleChange}
+            className={EquipamentoFormStyle["textarea"]}
+          />
+        </div>
+        <div className={EquipamentoFormStyle["button-container"]}>
+          <button type="submit" className={`${ButtonStyle["saveButton"]} ${EquipamentoFormStyle["submit-button"]}`}>
+            Cadastrar Equipamento
+          </button>
+        </div>
       </form>
-      <div className={EquipamentoFormStyle["button-container"]}>
-        <button type="submit" className={ButtonStyle["saveButton"]}>Cadastrar Equipamento</button>
-      </div>
     </div>
   );
 };

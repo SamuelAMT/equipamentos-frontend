@@ -1,37 +1,45 @@
 .saveButton {
-    padding: 12px 24px; /* Increased padding */
-    border-radius: 6px; /* Rounded corners */
+    padding: 12px 24px;
+    border-radius: 6px;
     border: none;
     cursor: pointer;
     background-color: #244D5B;
     color: white;
     font-weight: bold;
-    align-self: center;
-    font-size: 1rem; /* Larger font size */
-    transition: background-color 0.3s; /* Smooth color transition */
-}
+    font-size: 1rem;
+    transition: background-color 0.3s, transform 0.1s;
+  }
   
-.saveButton:hover {
-    background-color: #0056b3; /* Darker button color on hover */
-}
+  .saveButton:hover {
+    background-color: #1a3a45;
+  }
   
-.saveButton:focus {
+  .saveButton:focus {
     outline: none;
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5); /* Focus ring */
-}
-
-.closeButton {
+    box-shadow: 0 0 0 2px rgba(36, 77, 91, 0.5);
+  }
+  
+  .saveButton:active {
+    transform: scale(0.98);
+  }
+  
+  .closeButton {
     position: absolute;
-    top: 20px; /* Adjusted position */
-    right: 15px; /* Adjusted position */
+    top: 15px;
+    right: 15px;
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 1.5rem; /* Larger close button */
-    color: #333;
-}
+    padding: 5px;
+    transition: opacity 0.3s, transform 0.3s;
+  }
   
-.closeButton svg {
-    width: 30px; /* Larger close button SVG */
-    height: 30px; /* Larger close button SVG */
-}
+  .closeButton:hover {
+    opacity: 0.7;
+    transform: scale(0.9);
+  }
+  
+  .closeButton svg {
+    width: 24px;
+    height: 24px;
+  }

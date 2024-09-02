@@ -78,73 +78,37 @@ const EquipamentoEditModal: React.FC<EquipamentoEditModalProps> = ({
     >
       <button onClick={onRequestClose} className={ButtonStyle.closeButton}>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-          <path fill="#244d5b" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"/>
+          <path fill="#244d5b" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z" />
         </svg>
       </button>
       <form onSubmit={handleSubmit} className={EquipamentoEditModalStyle.form}>
-        <div className={EquipamentoEditModalStyle.formGroup}>
-          <label className={EquipamentoEditModalStyle.label}>Nome:</label>
-          <input
-            type="text"
-            name="nome"
-            value={formData.nome}
-            onChange={handleChange}
-            required
-            className={InputModalStyle.input}
-          />
-        </div>
-        <div className={EquipamentoEditModalStyle.formGroup}>
-          <label className={EquipamentoEditModalStyle.label}>Tipo:</label>
-          <input
-            type="text"
-            name="tipo"
-            value={formData.tipo}
-            onChange={handleChange}
-            required
-            className={InputModalStyle.input}
-          />
-        </div>
-        <div className={EquipamentoEditModalStyle.formGroup}>
-          <label className={EquipamentoEditModalStyle.label}>Fabricante:</label>
-          <input
-            type="text"
-            name="fabricante"
-            value={formData.fabricante}
-            onChange={handleChange}
-            required
-            className={InputModalStyle.input}
-          />
-        </div>
-        <div className={EquipamentoEditModalStyle.formGroup}>
-          <label className={EquipamentoEditModalStyle.label}>Modelo:</label>
-          <input
-            type="text"
-            name="modelo"
-            value={formData.modelo}
-            onChange={handleChange}
-            required
-            className={InputModalStyle.input}
-          />
-        </div>
-        <div className={EquipamentoEditModalStyle.formGroup}>
-          <label className={EquipamentoEditModalStyle.label}>Número de Série:</label>
-          <input
-            type="text"
-            name="numero_serie"
-            value={formData.numero_serie}
-            onChange={handleChange}
-            required
-            className={InputModalStyle.input}
-          />
-        </div>
+        {[
+          { label: 'Nome:', name: 'nome', type: 'text' },
+          { label: 'Tipo:', name: 'tipo', type: 'text' },
+          { label: 'Fabricante:', name: 'fabricante', type: 'text' },
+          { label: 'Modelo:', name: 'modelo', type: 'text' },
+          { label: 'Número de Série:', name: 'numero_serie', type: 'text' },
+        ].map((field) => (
+          <div key={field.name} className={EquipamentoEditModalStyle.formGroup}>
+            <label className={EquipamentoEditModalStyle.label}>{field.label}</label>
+            <input
+              type={field.type}
+              name={field.name}
+              value={formData[field.name as keyof EquipamentoFormData]}
+              onChange={handleChange}
+              required
+              className={InputModalStyle.input}
+            />
+          </div>
+        ))}
+
         <div className={EquipamentoEditModalStyle.formGroup}>
           <label className={EquipamentoEditModalStyle.label}>Status:</label>
           <select
             name="status"
             value={formData.status}
             onChange={handleChange}
-            required
-            className={InputModalStyle.input}
+            className={InputModalStyle.optionsInput}
           >
             <option value="Em Uso">Em Uso</option>
             <option value="Em Estoque">Em Estoque</option>
@@ -152,48 +116,58 @@ const EquipamentoEditModal: React.FC<EquipamentoEditModalProps> = ({
             <option value="Não Funcional">Não Funcional</option>
           </select>
         </div>
-        <div className={EquipamentoEditModalStyle.formGroup}>
-          <label className={EquipamentoEditModalStyle.label}>Data de Compra:</label>
-          <DatePicker
-            selected={new Date(formData.data_compra)}
-            onChange={(date) => handleDateChange(date as Date, 'data_compra')}
-            dateFormat="dd/MM/yyyy"
-            locale={ptBR}
-            className={InputModalStyle.input}
-          />
+
+        <div className={EquipamentoEditModalStyle.smallInputsContainerUp}>
+          <div className={EquipamentoEditModalStyle.formGroup}>
+            <label className={EquipamentoEditModalStyle.label}>Data de Compra:</label>
+            <DatePicker
+              selected={new Date(formData.data_compra)}
+              onChange={(date) => handleDateChange(date as Date, 'data_compra')}
+              dateFormat="dd/MM/yyyy"
+              locale={ptBR}
+              className={InputModalStyle.dateInput}
+            />
+          </div>
+
+          <div className={EquipamentoEditModalStyle.formGroup}>
+            <label className={EquipamentoEditModalStyle.label}>Valor de Compra:</label>
+            <input
+              type="text"
+              name="valor_compra"
+              value={formData.valor_compra.toString().replace('.', ',')}
+              onChange={handleValueChange}
+              className={InputModalStyle.moneyInput}
+            />
+          </div>
         </div>
-        <div className={EquipamentoEditModalStyle.formGroup}>
-          <label className={EquipamentoEditModalStyle.label}>Valor de Compra:</label>
-          <input
-            type="text"
-            name="valor_compra"
-            value={formData.valor_compra.toString().replace('.', ',')}
-            onChange={handleValueChange}
-            required
-            className={InputModalStyle.input}
-          />
+
+        <div className={EquipamentoEditModalStyle.smallInputsContainerDown}>
+          <div className={EquipamentoEditModalStyle.formGroup}>
+            <label className={EquipamentoEditModalStyle.label}>Data da Última Manutenção:</label>
+            <DatePicker
+              selected={new Date(formData.data_ultima_manutencao!)}
+              onChange={(date) => handleDateChange(date as Date, 'data_ultima_manutencao')}
+              dateFormat="dd/MM/yyyy"
+              locale={ptBR}
+              className={InputModalStyle.dateInput}
+            />
+          </div>
+
+          <div className={EquipamentoEditModalStyle.formGroup}>
+            <label className={EquipamentoEditModalStyle.label}>Data da Próxima Manutenção:</label>
+            <DatePicker
+              selected={new Date(formData.data_proxima_manutencao!)}
+              onChange={(date) => handleDateChange(date as Date, 'data_proxima_manutencao')}
+              dateFormat="dd/MM/yyyy"
+              locale={ptBR}
+              className={InputModalStyle.dateInput}
+            />
+          </div>
         </div>
-        <div className={EquipamentoEditModalStyle.formGroup}>
-          <label className={EquipamentoEditModalStyle.label}>Data da Última Manutenção:</label>
-          <DatePicker
-            selected={new Date(formData.data_ultima_manutencao!)}
-            onChange={(date) => handleDateChange(date as Date, 'data_ultima_manutencao')}
-            dateFormat="dd/MM/yyyy"
-            locale={ptBR}
-            className={InputModalStyle.input}
-          />
+
+        <div className={EquipamentoEditModalStyle.buttonContainer}>
+          <button type="submit" className={ButtonStyle.saveButton}>Salvar</button>
         </div>
-        <div className={EquipamentoEditModalStyle.formGroup}>
-          <label className={EquipamentoEditModalStyle.label}>Data da Próxima Manutenção:</label>
-          <DatePicker
-            selected={new Date(formData.data_proxima_manutencao!)}
-            onChange={(date) => handleDateChange(date as Date, 'data_proxima_manutencao')}
-            dateFormat="dd/MM/yyyy"
-            locale={ptBR}
-            className={InputModalStyle.input}
-          />
-        </div>
-        <button type="submit" className={ButtonStyle.saveButton}>Salvar</button>
       </form>
     </Modal>
   );

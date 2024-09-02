@@ -1,10 +1,12 @@
 body {
-  margin: 0; /* Ensure body has no margin */
+  margin: 0;
 }
 
 .app-container {
   padding: 0; /* Reset padding */
   margin: 0; /* Reset margin */
+  background-color: #244d5b;
+  background-image: url("https://www.transparenttextures.com/patterns/diagmonds.png");
 }
 
 .form-container {
@@ -13,31 +15,34 @@ body {
   background-color: white;
   border-radius: 18px;
   padding: 27px 25px;
-  box-shadow: 0 0px 10px rgba(0, 0.1, 0.1, 0.3);/* Removed shadow */
+  box-shadow: 0 0px 10px rgba(0, 0.1, 0.1, 0.3);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 0 auto; /* Ensure it's centered without extra margin */
+  margin: 0 auto;
 }
 
-/* Form title styling */
 .form-title {
   text-align: center;
   font-size: 24px;
   color: #333;
-  margin-bottom: 20px;
 }
 
-/* Form styling */
 .equipamento-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 25px;
+}
+
+.form-fields {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 25px;
+  gap: 5px;
   width: 100%;
 }
 
-/* Form group styling */
 .form-group {
   display: flex;
   flex-direction: column;
@@ -68,16 +73,25 @@ textarea {
   font-family: sans-serif;
 }
 
-/* Submit button styling */
+.dateInputContainer {
+  width: 100%;
+  display: flex;
+  gap: 105px;
+}
+
+.dateInput {
+    width: 100%;
+    padding: 12px;
+    border-radius: 7px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    font-size: 14px;
+}
+
 .submit-button {
-  grid-column: span 2;
-  padding: 10px;
-  background-color: #244D5B;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
+  width: auto;
+  min-width: 200px;
 }
 
 .submit-button:hover {
@@ -89,7 +103,7 @@ textarea {
   display: flex;
   justify-content: center;
   margin: 20px 0;
-  border-bottom: 2px solid #ddd;
+  background-color: #eeecec;
 }
 
 .nav-link {
@@ -112,6 +126,6 @@ textarea {
 .button-container {
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin-top: 23px;
+  width: 100%;
+  margin-top: 15px;
 }

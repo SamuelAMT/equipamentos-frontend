@@ -1,8 +1,45 @@
-input {
+.input {
     width: 100%;
-    padding: 12px; /* Increased padding */
-    border-radius: 7px; /* More rounded corners */
+    padding: 12px;
+    border-radius: 7px;
     border: 1px solid #ddd;
     box-sizing: border-box;
     font-family: sans-serif;
+    font-size: 14px;
+}
+
+.optionsInput {
+    width: 100%;
+    padding: 12px;
+    border-radius: 7px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    font-size: 14px;
+}
+  
+.dateInput {
+    width: 100%;
+    padding: 12px;
+    border-radius: 7px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    font-size: 14px;
+}
+
+.moneyInput {
+    width: 100%;
+    padding: 12px;
+    border-radius: 7px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    font-size: 14px;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #244D5B;
+    box-shadow: 0 0 0 4px rgba(36, 77, 91, 0.2);
 }
