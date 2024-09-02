@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import { EquipamentoFormData } from './EquipamentoForm';
 import { updateEquipamento } from './EquipamentoActions';
 import EquipamentoEditModal from './EquipamentoEditModal';
@@ -16,6 +17,7 @@ interface Equipamento {
   valor_compra: number;
   data_ultima_manutencao?: string;
   data_proxima_manutencao?: string;
+  descricao?: string;
 }
 
 interface EquipamentoListProps {
@@ -42,7 +44,7 @@ const EquipamentoList: React.FC<EquipamentoListProps> = ({ equipamentos, onEdit,
     try {
       if (selectedEquipamento) {
         await updateEquipamento(selectedEquipamento.id, updatedEquipamento);
-        console.log('Equipamento updated successfully');
+        toast.success('Equipamento atualizado com sucesso!');
         handleModalClose();
         
         const updatedEquipamentoWithId: Equipamento = {
@@ -53,7 +55,8 @@ const EquipamentoList: React.FC<EquipamentoListProps> = ({ equipamentos, onEdit,
         onEdit(updatedEquipamentoWithId);
       }
     } catch (error) {
-      console.error('Error updating equipamento:', error);
+      toast.error('Erro ao atualizar o equipamento.');
+      console.error('Erro ao atualizar o equipamento:', error);
     }
   };
 

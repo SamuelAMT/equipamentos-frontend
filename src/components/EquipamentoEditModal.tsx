@@ -20,6 +20,7 @@ export interface EquipamentoFormData {
   status: string;
   data_ultima_manutencao?: string;
   data_proxima_manutencao?: string;
+  descricao?: string;
 }
 
 interface EquipamentoEditModalProps {
@@ -96,7 +97,6 @@ const EquipamentoEditModal: React.FC<EquipamentoEditModalProps> = ({
               name={field.name}
               value={formData[field.name as keyof EquipamentoFormData]}
               onChange={handleChange}
-              required
               className={InputModalStyle.input}
             />
           </div>
@@ -164,9 +164,18 @@ const EquipamentoEditModal: React.FC<EquipamentoEditModalProps> = ({
             />
           </div>
         </div>
+        <div className={EquipamentoEditModalStyle["form-group"]}>
+          <label className={EquipamentoEditModalStyle["label"]}>Descrição:</label>
+          <textarea
+            name="descricao"
+            value={formData.descricao}
+            onChange={handleChange}
+            className={EquipamentoEditModalStyle["textarea"]}
+          />
+        </div>
 
         <div className={EquipamentoEditModalStyle.buttonContainer}>
-          <button type="submit" className={ButtonStyle.saveButton}>Salvar</button>
+          <button type="submit" className={ButtonStyle["saveButton"]}>Salvar</button>
         </div>
       </form>
     </Modal>

@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter as Router, Route, Routes, NavLink } from 'react-router-dom';
 import EquipamentoList from './components/EquipamentoList';
 import EquipamentoForm, { EquipamentoFormData } from './components/EquipamentoForm';
@@ -30,12 +33,14 @@ const App: React.FC = () => {
     try {
       const response = await fetch('http://localhost:8000/api/equipamentos/');
       if (!response.ok) {
-        throw new Error('Failed to fetch equipamentos');
+        toast.error('Erro ao cadastrar o equipamento.');
+        throw new Error('Erro ao listar os equipamentos');
       }
       const data = await response.json();
       setEquipamentos(data);
     } catch (error) {
-      console.error('Error fetching equipamentos:', error);
+      toast.error('Erro ao listar os equipamentos.');
+      console.error('Erro ao listar os equipamentos:', error);
     }
   };
 
@@ -49,18 +54,17 @@ const App: React.FC = () => {
         body: JSON.stringify(data),
       });
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error('A Resposta de rede não foi Ok');
       }
       console.log('Equipamento cadastrado com sucesso!');
-      fetchEquipamentos(); // Refresh the list after adding a new equipamento
-    } catch (error) {
-      console.error('Erro na requisição:', error);
-    }
-  };
+    fetchEquipamentos();
+  } catch (error) {
+    console.error('Erro na requisição:', error);
+  }
+};
 
   const handleEdit = (equipamento: Equipamento) => {
-    // Implement the edit functionality here
-    console.log('Edit:', equipamento);
+    console.log('Edição:', equipamento);
   };
 
   const handleDelete = async (equipamento: Equipamento) => {
@@ -69,12 +73,15 @@ const App: React.FC = () => {
         method: 'DELETE',
       });
       if (!response.ok) {
-        throw new Error('Failed to delete equipamento');
+        toast.error('Erro ao deletar o equipamento.');
+        throw new Error('Erro ao deletar o equipamento');
       }
-      console.log('Equipamento deleted successfully');
-      fetchEquipamentos(); // Refresh the list after deletion
+      toast.success('Equipamento deletado com sucesso!');
+      console.log('Equipamento deletado com sucesso!');
+      fetchEquipamentos();
     } catch (error) {
-      console.error('Error deleting equipamento:', error);
+      toast.error('Erro ao deletar o equipamento.');
+      console.error('Erro ao deletar o equipamento:', error);
     }
   };
 
@@ -82,6 +89,7 @@ const App: React.FC = () => {
     <Router>
       <div className={EquipamentoFormStyle["app-container"]}>
         <Header />
+        <ToastContainer />
         <nav className={EquipamentoFormStyle["nav-tabs"]}>
           <NavLink to="/" className={({ isActive }) => isActive ? `${EquipamentoFormStyle["nav-link"]} ${EquipamentoFormStyle["active"]}` : EquipamentoFormStyle["nav-link"]}>
             Listagem de Equipamentos

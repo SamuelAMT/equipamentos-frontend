@@ -4,6 +4,8 @@ import ButtonStyle from '../styles/buttons.module.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ptBR } from 'date-fns/locale';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface EquipamentoFormProps {
   onSubmit: (data: EquipamentoFormData) => void;
@@ -47,11 +49,17 @@ const EquipamentoForm: React.FC<EquipamentoFormProps> = ({ onSubmit }) => {
   };
 
   const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseFloat(e.target.value.replace(',', '.')).toFixed(2);
-    setFormData({
-      ...formData,
-      [e.target.name]: parseFloat(value),
-    });
+    const { value } = e.target;
+    const numericValue = value.replace(/[^0-9,]/g, '');
+    const floatValue = numericValue.replace(',', '.');
+
+    if (numericValue === '') {
+      setFormData({ ...formData, valor_compra: 0 });
+      return;
+    }
+
+    const parsedValue = parseFloat(floatValue);
+    setFormData({ ...formData, valor_compra: parsedValue });
   };
 
   const handleDateChange = (date: Date, field: keyof EquipamentoFormData) => {
@@ -65,11 +73,12 @@ const EquipamentoForm: React.FC<EquipamentoFormProps> = ({ onSubmit }) => {
     e.preventDefault();
 
     if (!formData.tipo || !formData.fabricante || !formData.modelo || !formData.numero_serie) {
-      alert('Por favor, preencha todos os campos obrigatórios.');
+      toast.error('Por favor, preencha todos os campos obrigatórios.');
       return;
     }
 
     onSubmit(formData);
+    toast.success('Equipamento cadastrado com sucesso!');
   };
 
   return (
@@ -83,7 +92,6 @@ const EquipamentoForm: React.FC<EquipamentoFormProps> = ({ onSubmit }) => {
             name="nome"
             value={formData.nome}
             onChange={handleChange}
-            required
             className={EquipamentoFormStyle["input"]}
           />
         </div>
@@ -94,7 +102,6 @@ const EquipamentoForm: React.FC<EquipamentoFormProps> = ({ onSubmit }) => {
             name="tipo"
             value={formData.tipo}
             onChange={handleChange}
-            required
             className={EquipamentoFormStyle["input"]}
           />
         </div>
@@ -105,7 +112,6 @@ const EquipamentoForm: React.FC<EquipamentoFormProps> = ({ onSubmit }) => {
             name="fabricante"
             value={formData.fabricante}
             onChange={handleChange}
-            required
             className={EquipamentoFormStyle["input"]}
           />
         </div>
@@ -116,7 +122,6 @@ const EquipamentoForm: React.FC<EquipamentoFormProps> = ({ onSubmit }) => {
             name="modelo"
             value={formData.modelo}
             onChange={handleChange}
-            required
             className={EquipamentoFormStyle["input"]}
           />
         </div>
@@ -127,7 +132,6 @@ const EquipamentoForm: React.FC<EquipamentoFormProps> = ({ onSubmit }) => {
             name="numero_serie"
             value={formData.numero_serie}
             onChange={handleChange}
-            required
             className={EquipamentoFormStyle["input"]}
           />
         </div>
@@ -137,7 +141,6 @@ const EquipamentoForm: React.FC<EquipamentoFormProps> = ({ onSubmit }) => {
             name="status"
             value={formData.status}
             onChange={handleChange}
-            required
             className={EquipamentoFormStyle["select"]}
           >
             <option value="Em Uso">Em Uso</option>
@@ -183,9 +186,10 @@ const EquipamentoForm: React.FC<EquipamentoFormProps> = ({ onSubmit }) => {
           <input
             type="text"
             name="valor_compra"
-            value={formData.valor_compra.toString().replace('.', ',')}
+            value={formData.valor_compra.toFixed(2).replace('.', ',')}
             onChange={handleValueChange}
             className={EquipamentoFormStyle["input"]}
+            placeholder="0,00"
           />
         </div>
         <div className={EquipamentoFormStyle["form-group"]}>
