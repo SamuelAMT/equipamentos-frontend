@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { EquipamentoFormData } from './EquipamentoForm';
-import { updateEquipamento } from './EquipamentoActions';
 import EquipamentoEditModal from './EquipamentoEditModal';
 import EquipamentoListStyle from '../styles/equipamentos_list.module.css';
 
