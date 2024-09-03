@@ -21,6 +21,13 @@ Siga as instruções abaixo para configurar e executar o projeto frontend localm
   • services/: Configuração das requisições à API backend.</br>
   • App.tsx: Componente principal que gerencia as rotas e o layout geral.</br>
 
+  ## How to run
+  É possível rodar o frontend e o backend juntos, via docker compose, para isso, siga as instruções abaixo:
+  ```bash
+  docker-compose pull
+  docker-compose up
+  ```
+
 ## 🧪 Testes
 Para executar os testes automatizados, utilize o seguinte comando:
 ```npm test```
