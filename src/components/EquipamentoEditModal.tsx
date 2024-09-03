@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
+import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import EquipamentoEditModalStyle from '../styles/equipamentos_edit_modal.module.css';
@@ -38,6 +39,10 @@ const EquipamentoEditModal: React.FC<EquipamentoEditModalProps> = ({
   initialData,
 }) => {
   const [formData, setFormData] = useState<EquipamentoFormData>(initialData);
+
+  useEffect(() => {
+    Modal.setAppElement('#root');
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
